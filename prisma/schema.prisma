@@ -1,5 +1,6 @@
 generator client {
-  provider = "prisma-client-js"
+  provider = "prisma-client"
+  output   = "../app/generated/prisma"
 }
 
 datasource db {
@@ -27,6 +28,29 @@ enum SubscriptionStatus {
   CANCELED
 }
 
+enum AgentRunType {
+  VISIBILITY_AUDIT
+  COPILOT_TASK
+  TELEPILOT_EVENT
+}
+
+enum AgentRunStatus {
+  QUEUED
+  RUNNING
+  AWAITING_REVIEW
+  SUCCEEDED
+  FAILED
+  CANCELLED
+}
+
+enum AgentStepStatus {
+  QUEUED
+  RUNNING
+  SUCCEEDED
+  FAILED
+  SKIPPED
+}
+
 model User {
   id            String        @id @default(cuid())
   email         String        @unique
@@ -52,6 +76,7 @@ model Organization {
   billingCustomer   BillingCustomer?
   subscriptions     Subscription[]
   auditLogs         AuditLog[]
+  agentRuns         AgentRun[]
 }
 
 model Membership {
@@ -146,4 +171,65 @@ model AuditLog {
   createdAt        DateTime       @default(now())
   organization     Organization   @relation(fields: [organizationId], references: [id], onDelete: Cascade)
   actor            User           @relation(fields: [actorUserId], references: [id], onDelete: Cascade)
+}
+
+model AgentRun {
+  id                   String         @id @default(cuid())
+  organizationId       String
+  type                 AgentRunType
+  status               AgentRunStatus @default(QUEUED)
+  idempotencyKey       String?
+  inputJson            String
+  configurationVersion String
+  provider             String?
+  model                String?
+  claimedAt            DateTime?
+  claimExpiresAt       DateTime?
+  startedAt            DateTime?
+  completedAt          DateTime?
+  failureCode          String?
+  failureMessage       String?
+  createdAt            DateTime       @default(now())
+  updatedAt            DateTime       @updatedAt
+  organization         Organization   @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  steps                AgentStep[]
+  artifacts            AgentArtifact[]
+
+  @@unique([organizationId, idempotencyKey])
+  @@index([organizationId, createdAt])
+  @@index([status, claimExpiresAt])
+}
+
+model AgentStep {
+  id            String          @id @default(cuid())
+  agentRunId    String
+  sequence      Int
+  kind          String
+  status        AgentStepStatus @default(QUEUED)
+  inputJson     String?
+  outputJson    String?
+  errorMessage  String?
+  startedAt     DateTime?
+  completedAt   DateTime?
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+  agentRun      AgentRun        @relation(fields: [agentRunId], references: [id], onDelete: Cascade)
+
+  @@unique([agentRunId, sequence])
+  @@index([agentRunId, status])
+}
+
+model AgentArtifact {
+  id            String    @id @default(cuid())
+  agentRunId    String
+  kind          String
+  title         String?
+  contentType   String
+  contentText   String?
+  contentJson   String?
+  checksum      String?
+  createdAt     DateTime  @default(now())
+  agentRun      AgentRun  @relation(fields: [agentRunId], references: [id], onDelete: Cascade)
+
+  @@index([agentRunId, createdAt])
 }

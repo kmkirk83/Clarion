@@ -36,3 +36,6 @@ coverage
 
 # typescript
 *.tsbuildinfo
+
+# generated Prisma client
+app/generated/prisma/
