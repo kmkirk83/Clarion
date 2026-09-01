@@ -1,10 +1,10 @@
-# Clarion
+# Kyzen
 
-Clarion is a commercialization-focused foundation for an **AI Visibility Intelligence** platform. It is designed as a hosted, multi-tenant SaaS product that helps brands measure, monitor, and improve how they appear across AI assistants and generative search systems.
+Kyzen is a commercialization-focused foundation for an **AI Visibility Intelligence** platform. It is designed as a hosted, multi-tenant SaaS product that helps brands measure, monitor, and improve [...]
 
 ## What is included
 
-This repository now provides a production-oriented starting point for building and selling Clarion:
+This repository now provides a production-oriented starting point for building and selling Kyzen:
 
 - Next.js 16 + TypeScript application baseline
 - Prisma data model for organizations, memberships, reports, billing, API keys, and audits
@@ -15,7 +15,7 @@ This repository now provides a production-oriented starting point for building a
 
 ## Product direction
 
-Clarion is optimized for the following rollout path:
+Kyzen is optimized for the following rollout path:
 
 1. **Hosted SaaS first** for commercial launch
 2. **Developer platform second** via a public API and future SDK/CLI packages
@@ -32,7 +32,7 @@ Clarion is optimized for the following rollout path:
 ### Setup
 
 ```bash
-cp /home/runner/work/Clarion/Clarion/.env.example /home/runner/work/Clarion/Clarion/.env
+cp /home/runner/work/Kyzen/Kyzen/.env.example /home/runner/work/Kyzen/Kyzen/.env
 npm ci
 npm run dev
 ```
@@ -41,7 +41,7 @@ Open `http://localhost:3000`.
 
 ## Environment variables
 
-See `/home/runner/work/Clarion/Clarion/.env.example` for the expected runtime contract.
+See `/home/runner/work/Kyzen/Kyzen/.env.example` for the expected runtime contract.
 
 Key integrations:
 
@@ -72,7 +72,7 @@ Key integrations:
 ## Telegram copilot connector
 
 1. Create a Telegram bot with BotFather and capture the bot token.
-2. Set `TELEGRAM_BOT_TOKEN`, `TELEGRAM_WEBHOOK_SECRET`, and either `OPENAI_API_KEY` or `ANTHROPIC_API_KEY` in `/home/runner/work/Clarion/Clarion/.env`.
+2. Set `TELEGRAM_BOT_TOKEN`, `TELEGRAM_WEBHOOK_SECRET`, and either `OPENAI_API_KEY` or `ANTHROPIC_API_KEY` in `/home/runner/work/Kyzen/Kyzen/.env`.
 3. Optionally set `TELEGRAM_ALLOWED_CHAT_IDS` to a comma-separated allowlist of Telegram chat IDs.
 4. Point Telegram at `https://<your-domain>/api/integrations/telegram` and send the same secret value in the `X-Telegram-Bot-Api-Secret-Token` header when you register the webhook.
 5. Message the bot with a plain-text task or `/help` to confirm the connector is online.
@@ -81,29 +81,29 @@ The connector is stateless and replies with the configured provider response, so
 
 ## Standalone marketplace repo seed
 
-If you want to publish the Telegram connector as a completely separate public repository named `telepilot`, start from `/home/runner/work/Clarion/Clarion/telepilot`. That directory contains a standalone repo scaffold with independent package metadata, webhook source, and support/privacy/security docs that can be copied into a new GitHub repository.
+If you want to publish the Telegram connector as a completely separate public repository named `telepilot`, start from `/home/runner/work/Kyzen/Kyzen/telepilot`. That directory contains a standalo[...]
 
 ## Deployment target
 
 The repository is configured for **hosted Next.js deployment with Docker-compatible standalone output**.
 
-- For platform hosting, see `/home/runner/work/Clarion/Clarion/docs/runbooks/production.md`
-- For container builds, see `/home/runner/work/Clarion/Clarion/Dockerfile`
+- For platform hosting, see `/home/runner/work/Kyzen/Kyzen/docs/runbooks/production.md`
+- For container builds, see `/home/runner/work/Kyzen/Kyzen/Dockerfile`
 
 ## Release and governance
 
 - Versioning is semver-based and managed with Release Please
-- Changelog entries are maintained in `/home/runner/work/Clarion/Clarion/CHANGELOG.md`
-- Security reporting guidance is in `/home/runner/work/Clarion/Clarion/SECURITY.md`
-- Contribution rules are in `/home/runner/work/Clarion/Clarion/CONTRIBUTING.md`
-- Code ownership is defined in `/home/runner/work/Clarion/Clarion/CODEOWNERS`
+- Changelog entries are maintained in `/home/runner/work/Kyzen/Kyzen/CHANGELOG.md`
+- Security reporting guidance is in `/home/runner/work/Kyzen/Kyzen/SECURITY.md`
+- Contribution rules are in `/home/runner/work/Kyzen/Kyzen/CONTRIBUTING.md`
+- Code ownership is defined in `/home/runner/work/Kyzen/Kyzen/CODEOWNERS`
 
 ## Architecture references
 
-- `/home/runner/work/Clarion/Clarion/docs/architecture.md`
-- `/home/runner/work/Clarion/Clarion/docs/adr/0001-hosted-saas-first.md`
-- `/home/runner/work/Clarion/Clarion/docs/privacy-data-processing.md`
+- `/home/runner/work/Kyzen/Kyzen/docs/architecture.md`
+- `/home/runner/work/Kyzen/Kyzen/docs/adr/0001-hosted-saas-first.md`
+- `/home/runner/work/Kyzen/Kyzen/docs/privacy-data-processing.md`
 
 ## Commercial distribution notes
 
-The root application remains private because it is a deployable SaaS product, not a library package. Future developer-platform distribution should be added as separate publishable packages (for example `packages/sdk` and `packages/cli`) once the public API contract is finalized.
+The root application remains private because it is a deployable SaaS product, not a library package. Future developer-platform distribution should be added as separate publishable packages (for exampl[...]
