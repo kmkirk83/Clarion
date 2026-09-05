@@ -36,7 +36,7 @@
     "eslint": "^9.39.5",
     "eslint-config-next": "16.2.12",
     "jest": "^30.4.2",
-    "jest-environment-jsdom": "^30.4.1",
+    "jest-environment-jsdom": "^30.5.1",
     "prisma": "^7.10.0",
     "typescript": "~6.0.3"
   }
